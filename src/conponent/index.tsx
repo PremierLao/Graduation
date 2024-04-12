@@ -5,6 +5,7 @@ import type { GetProp, UploadFile, UploadProps } from "antd";
 // import { useStyles } from "./style";
 import style from "./index.module.less";
 import pic2 from "../assets/pic2.png";
+import { UploadOutlined } from "@ant-design/icons";
 
 export const Header = () => {
   return (
@@ -36,27 +37,19 @@ export const Center = () => {
 };
 
 const Sider = () => {
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
-  // const { styles } = useStyles();
-
-  const onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
-    console.log(fileList);
-    setFileList(newFileList);
-  };
-
-  const onPreview = async (file: UploadFile) => {
-    let src = file.url as string;
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj as FileType);
-        reader.onload = () => resolve(reader.result as string);
-      });
-    }
-    const image = new Image();
-    image.src = src;
-    const imgWindow = window.open(src);
-    imgWindow?.document.write(image.outerHTML);
+  const props: UploadProps = {
+    action: "//jsonplaceholder.typicode.com/posts/",
+    listType: "picture",
+    previewFile(file) {
+      console.log("Your upload file:", file);
+      // Your process logic. Here we just mock to the same file
+      return fetch("https://next.json-generator.com/api/json/get/4ytyBoLK8", {
+        method: "POST",
+        body: file,
+      })
+        .then((res) => res.json())
+        .then(({ thumbnail }) => thumbnail);
+    },
   };
 
   const fetchData = async () => {
@@ -90,24 +83,13 @@ const Sider = () => {
       <div>
         <Radio.Group>
           <Radio value={0}>算法a</Radio>
-          <Radio value={1}>算法b</Radio>
-          <Radio value={2}>算法c</Radio>
         </Radio.Group>
         <Button onClick={fetchData}>分析</Button>
       </div>
       <div>
-        <ImgCrop rotationSlider>
-          <Upload
-            listType="picture-card"
-            fileList={fileList}
-            onChange={onChange}
-            onPreview={onPreview}
-            maxCount={1}
-            className={style.contain}
-          >
-            {fileList.length < 1 && "+ Upload"}
-          </Upload>
-        </ImgCrop>
+        <Upload {...props}>
+          <Button icon={<UploadOutlined />}>Upload</Button>
+        </Upload>
       </div>
     </div>
   );
@@ -179,5 +161,3 @@ const Content = () => {
     </div>
   );
 };
-
-type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
