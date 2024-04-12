@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "antd": "^5.16.1",
+    "antd-img-crop": "^4.21.0",
+    "antd-style": "^3.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -22,6 +25,7 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
+    "less": "^4.2.0",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
   }
