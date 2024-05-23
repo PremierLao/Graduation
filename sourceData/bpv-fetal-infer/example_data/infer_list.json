@@ -1,0 +1,11 @@
+{
+    "data_root": "./example_data/nifti",
+    "test": [
+        {
+            "image": "sub_029_28W/029_2001477996-28W_cor_T2w.nii.gz"
+        },
+        {
+            "image": "sub_030_24W/030_2001484027-24W_cor_T2w.nii.gz"
+        }
+    ]
+}

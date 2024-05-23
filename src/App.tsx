@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Header, Center } from "./conponent";
+import { Header, Center } from "./component";
 
 import "./App.css";
 

@@ -12,4 +12,10 @@ export default defineConfig({
       },
     },
   },
+  optimizeDeps: {
+    exclude: [
+      // 在这里添加你想要排除的文件或文件夹的路径
+      './sourceData/bpv-fetal-infer/output_result/output_result_02',
+    ],
+  },
 })
